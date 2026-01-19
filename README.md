@@ -8,5 +8,7 @@ Medical SAM3: A Foundation Model for Universal Prompt-Driven Medical Image Segme
   <a href="https://chongcongjiang.github.io/MedicalSAM3/">
     <img src="https://img.shields.io/badge/Project-Page-blue.svg">
   </a>
+  <a href="HF_PAGE_URL">
+    <img src="https://huggingface.co/datasets/huggingface/badges/resolve/main/powered-by-huggingface.svg">
+  </a>
 </p>
-
