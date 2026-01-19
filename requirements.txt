@@ -1,0 +1,23 @@
+# Core dependencies
+numpy>=1.26.0
+pandas>=2.0.0
+pillow>=10.0.0
+tqdm>=4.65.0
+
+# PyTorch (install separately based on your CUDA version)
+# See: https://pytorch.org/get-started/locally/
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Image processing
+scikit-image>=0.21.0
+opencv-python>=4.8.0
+
+# Visualization
+matplotlib>=3.7.0
+
+# HuggingFace for model loading
+huggingface_hub>=0.20.0
+
+# SAM3 (install from source)
+# git+https://github.com/facebookresearch/sam3.git
