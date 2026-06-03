@@ -10,6 +10,7 @@ dist/
 build/
 develop-eggs/
 wheels/
+*.bak
 
 # IDE / Editors
 .vscode/
@@ -26,7 +27,7 @@ wheels/
 .DS_Store
 Thumbs.db
 
-# Model weights
+# Model weights & checkpoints (never commit)
 *.pt
 *.pth
 *.bin
@@ -41,37 +42,35 @@ sam3_logs/
 *.hdf5
 *.pkl
 *.pickle
-# keep small val npz out of git via local policy
 *.npy
 
-# Logs & experiment outputs
+# Logs & job outputs
 logs/
 runs/
 tensorboard/
 submitit_logs/
 visualizations/
 config_resolved.yaml
+config.yaml
 dumps/
 *.mp4
 *.out
 *.err
+*.log
+
+# Experiment runtime — only experiments/README.md is tracked
+experiments/**
+!experiments/README.md
 
 # AIM inference outputs
 inference/results/
 inference/visualization/
 inference/*.ipynb
 
-# MedSAM3 runtime
-experiments/medsam3_stage1_train_all_unified/logs/
-experiments/medsam3_stage1_train_all_unified/tensorboard/
-experiments/medsam3_stage1_train_all_unified/config_resolved.yaml
-experiments/medsam3_stage1_train_all_unified/config.yaml
-experiments/results/
-experiments/logs/
-experiments/sam3_stage0.pt
+# Local path overrides
 sam3/train/configs/medsam3_stage1_train_all_unified.local.yaml
 
-# BPE copies (canonical file is tracked)
+# BPE copies (canonical file is tracked under assets/)
 *.bpe
 *.vocab
 
@@ -79,4 +78,5 @@ sam3/train/configs/medsam3_stage1_train_all_unified.local.yaml
 sam3/train/configs/medsam3_stage0_all_datasets.yaml
 sam3/train/configs/medsam3_stage0_all_datasets_v2.yaml
 sam3/train/configs/medsam3_stage0_decoder_only.yaml
+
 results/

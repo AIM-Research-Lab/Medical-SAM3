@@ -1,11 +1,24 @@
-# Runtime outputs (not source code)
+# Runtime outputs (do not commit)
 
-This directory holds checkpoints and evaluation results created at run time. It is not part of the MedSAM3 source tree.
+Everything under this folder is created locally when you train or evaluate. **None of it belongs in git.**
 
-| Path | Purpose |
-|------|---------|
-| `medsam3_stage1_train_all_unified/` | Training logs and `checkpoints/checkpoint.pt` |
-| `sam3_stage0.pt` | Optional init weights (see training config) |
-| `results/` | Evaluation outputs (`summary.json`, CSV) |
+After training:
 
-Train and eval entry points: `medical/README.md` and `README_MEDSAM3.md`.
+```
+medsam3_stage1_train_all_unified/
+  checkpoints/checkpoint.pt    # your fine-tuned weights
+  logs/
+  tensorboard/
+```
+
+After evaluation:
+
+```
+results/
+  cvpr_3d_val/...
+  cvpr_train10p_eval/...
+```
+
+Optional init weights (download or copy locally): `sam3_stage0.pt`
+
+Entry points: `medical/README.md` · `README.md`
