@@ -11,9 +11,12 @@ import numpy as np
 import torch
 from PIL import Image
 
-# Add SAM3 to path - update this to your SAM3 installation directory
-SAM3_ROOT = Path("../sam3")
-sys.path.insert(0, str(SAM3_ROOT))
+# In-repo SAM3 package (repo_root/sam3/)
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+_SAM3_PKG = _REPO_ROOT / "sam3"
+for _p in (_REPO_ROOT, _SAM3_PKG):
+    if str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
 
 from sam3 import build_sam3_image_model
 from sam3.model.sam3_image_processor import Sam3Processor

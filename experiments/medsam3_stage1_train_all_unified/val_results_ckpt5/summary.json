@@ -1,0 +1,419 @@
+{
+  "summary": {
+    "run_tag": "train_all_unified_ckpt5",
+    "ckpt": "/anvil/projects/x-cis250950/sam3/experiments/medsam3_stage1_train_all_unified/checkpoints/checkpoint_5.pt",
+    "load_from_HF": false,
+    "volumes_per_group": 50,
+    "n_volumes": 1316,
+    "n_ok": 1033,
+    "n_skip": 283,
+    "n_error": 0,
+    "overall_mean_dice": 0.3331982191869475,
+    "overall_mean_iou": 0.2464200752370321,
+    "internal_n_ok": 953,
+    "internal_mean_dice": 0.3499922720679248,
+    "internal_mean_iou": 0.26049417415911147,
+    "external_n_ok": 80,
+    "external_mean_dice": 0.13313906424230498,
+    "external_mean_iou": 0.07876237182776132,
+    "elapsed_minutes": 22.87286310195923
+  },
+  "per_group": [
+    {
+      "group": "MR_T1c_crossMoDA_Tumor_Cochlea",
+      "in_training": true,
+      "n_ok": 22,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.7543708513963362,
+      "mean_iou": 0.6623807331917889
+    },
+    {
+      "group": "MR_ProstateT2",
+      "in_training": true,
+      "n_ok": 34,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.6987101880508756,
+      "mean_iou": 0.5739005265203604
+    },
+    {
+      "group": "MR_ISLES_DWI",
+      "in_training": true,
+      "n_ok": 22,
+      "n_skip": 1,
+      "n_error": 0,
+      "mean_dice": 0.642585136183604,
+      "mean_iou": 0.5388722973086127
+    },
+    {
+      "group": "PET_autoPET",
+      "in_training": true,
+      "n_ok": 48,
+      "n_skip": 2,
+      "n_error": 0,
+      "mean_dice": 0.6294322190585584,
+      "mean_iou": 0.5101628630171485
+    },
+    {
+      "group": "CT_LiverTumor",
+      "in_training": true,
+      "n_ok": 46,
+      "n_skip": 2,
+      "n_error": 0,
+      "mean_dice": 0.6213654952885524,
+      "mean_iou": 0.5193070476071763
+    },
+    {
+      "group": "US_Cardiac",
+      "in_training": true,
+      "n_ok": 50,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.537720620740627,
+      "mean_iou": 0.37207120538575805
+    },
+    {
+      "group": "CT_LungLesion",
+      "in_training": true,
+      "n_ok": 16,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.5155115058898386,
+      "mean_iou": 0.4219194839438171
+    },
+    {
+      "group": "CT_AdrenalTumor",
+      "in_training": true,
+      "n_ok": 5,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.49501243624082586,
+      "mean_iou": 0.4004732556589593
+    },
+    {
+      "group": "MR_ProstateADC",
+      "in_training": true,
+      "n_ok": 28,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.4899878613190281,
+      "mean_iou": 0.35046263909403036
+    },
+    {
+      "group": "MR_CHAOS-T2",
+      "in_training": true,
+      "n_ok": 2,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.47734668460708307,
+      "mean_iou": 0.3439958752279705
+    },
+    {
+      "group": "US_Low-limb-Leg",
+      "in_training": true,
+      "n_ok": 10,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.4716934693046249,
+      "mean_iou": 0.3438596092099785
+    },
+    {
+      "group": "MR_Heart_ACDC",
+      "in_training": true,
+      "n_ok": 25,
+      "n_skip": 25,
+      "n_error": 0,
+      "mean_dice": 0.45837283086910147,
+      "mean_iou": 0.312654530281248
+    },
+    {
+      "group": "CT_WholeBodyTumor",
+      "in_training": true,
+      "n_ok": 48,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.4452153310505362,
+      "mean_iou": 0.35364085698635295
+    },
+    {
+      "group": "MR_CHAOS-T1",
+      "in_training": true,
+      "n_ok": 2,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.43742223772747263,
+      "mean_iou": 0.29979983871980237
+    },
+    {
+      "group": "CT_SegRap_HeadNeckTumor",
+      "in_training": true,
+      "n_ok": 24,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.424839733730272,
+      "mean_iou": 0.29422331839210786
+    },
+    {
+      "group": "CT_LymphNode",
+      "in_training": true,
+      "n_ok": 27,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.42469649520034514,
+      "mean_iou": 0.3200929187296975
+    },
+    {
+      "group": "MR_WMH_FLAIR",
+      "in_training": true,
+      "n_ok": 11,
+      "n_skip": 6,
+      "n_error": 0,
+      "mean_dice": 0.3894730896521294,
+      "mean_iou": 0.2734781882163569
+    },
+    {
+      "group": "MR_QIN-PROSTATE-Lesion",
+      "in_training": true,
+      "n_ok": 14,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.3514929487080996,
+      "mean_iou": 0.2828920180235072
+    },
+    {
+      "group": "MR_ISLES_ADC",
+      "in_training": true,
+      "n_ok": 22,
+      "n_skip": 1,
+      "n_error": 0,
+      "mean_dice": 0.3354762559128303,
+      "mean_iou": 0.24895974980022223
+    },
+    {
+      "group": "CT_COVID19-Infection",
+      "in_training": true,
+      "n_ok": 19,
+      "n_skip": 2,
+      "n_error": 0,
+      "mean_dice": 0.33452206934602124,
+      "mean_iou": 0.24285192787173793
+    },
+    {
+      "group": "Microscopy_SELMA3D",
+      "in_training": true,
+      "n_ok": 42,
+      "n_skip": 8,
+      "n_error": 0,
+      "mean_dice": 0.322639589395319,
+      "mean_iou": 0.24576152845905525
+    },
+    {
+      "group": "MR_HeadHaN",
+      "in_training": true,
+      "n_ok": 29,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.31120533019247454,
+      "mean_iou": 0.22119482712040223
+    },
+    {
+      "group": "CT_TotalSeg_cardiac",
+      "in_training": true,
+      "n_ok": 49,
+      "n_skip": 1,
+      "n_error": 0,
+      "mean_dice": 0.24469090971009602,
+      "mean_iou": 0.15371275377375582
+    },
+    {
+      "group": "MR_WMH_T1",
+      "in_training": true,
+      "n_ok": 12,
+      "n_skip": 5,
+      "n_error": 0,
+      "mean_dice": 0.2116031253734323,
+      "mean_iou": 0.13800554532376916
+    },
+    {
+      "group": "CT_PancreasTumor",
+      "in_training": true,
+      "n_ok": 50,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.17334178222444216,
+      "mean_iou": 0.11352164322570804
+    },
+    {
+      "group": "MR_TotalSeg",
+      "in_training": true,
+      "n_ok": 24,
+      "n_skip": 2,
+      "n_error": 0,
+      "mean_dice": 0.1699519737014816,
+      "mean_iou": 0.10401759609853256
+    },
+    {
+      "group": "CT_AMOS",
+      "in_training": false,
+      "n_ok": 30,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.16830492592515364,
+      "mean_iou": 0.09574100195618547
+    },
+    {
+      "group": "CT_TotalSeg_organs",
+      "in_training": true,
+      "n_ok": 50,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.15958258659947305,
+      "mean_iou": 0.09117883989188828
+    },
+    {
+      "group": "MR_AMOS",
+      "in_training": true,
+      "n_ok": 6,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.15316515412346463,
+      "mean_iou": 0.08495540141209472
+    },
+    {
+      "group": "CT_TotalSeg_muscles",
+      "in_training": true,
+      "n_ok": 47,
+      "n_skip": 3,
+      "n_error": 0,
+      "mean_dice": 0.1490497136752786,
+      "mean_iou": 0.08739932716583335
+    },
+    {
+      "group": "CT_ColonTumor",
+      "in_training": true,
+      "n_ok": 12,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.1374747509381121,
+      "mean_iou": 0.08661719582862455
+    },
+    {
+      "group": "MR_LeftAtrium",
+      "in_training": true,
+      "n_ok": 2,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.12881045345781542,
+      "mean_iou": 0.0707878755745554
+    },
+    {
+      "group": "CT_Lungs",
+      "in_training": true,
+      "n_ok": 46,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.1283246460487611,
+      "mean_iou": 0.07979648037886625
+    },
+    {
+      "group": "MR_Spider",
+      "in_training": true,
+      "n_ok": 50,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.1158242781480231,
+      "mean_iou": 0.0647151046548722
+    },
+    {
+      "group": "CT_AbdomenAtlas",
+      "in_training": false,
+      "n_ok": 50,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.11203954723259577,
+      "mean_iou": 0.06857519375070681
+    },
+    {
+      "group": "CT_TotalSeg-vertebrae",
+      "in_training": true,
+      "n_ok": 49,
+      "n_skip": 1,
+      "n_error": 0,
+      "mean_dice": 0.09993926383998901,
+      "mean_iou": 0.05555652456397298
+    },
+    {
+      "group": "CT_ThoracicOrgans-TCIA-LCTSC",
+      "in_training": true,
+      "n_ok": 6,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.09793419308825228,
+      "mean_iou": 0.057388599395398754
+    },
+    {
+      "group": "CT_HaN-Seg",
+      "in_training": true,
+      "n_ok": 4,
+      "n_skip": 0,
+      "n_error": 0,
+      "mean_dice": 0.026993179682168786,
+      "mean_iou": 0.014112538536939707
+    },
+    {
+      "group": "CT_AirwayTree",
+      "in_training": true,
+      "n_ok": 0,
+      "n_skip": 19,
+      "n_error": 0,
+      "mean_dice": NaN,
+      "mean_iou": NaN
+    },
+    {
+      "group": "CT_Aorta",
+      "in_training": true,
+      "n_ok": 0,
+      "n_skip": 5,
+      "n_error": 0,
+      "mean_dice": NaN,
+      "mean_iou": NaN
+    },
+    {
+      "group": "MR_BraTS-T1c",
+      "in_training": true,
+      "n_ok": 0,
+      "n_skip": 50,
+      "n_error": 0,
+      "mean_dice": NaN,
+      "mean_iou": NaN
+    },
+    {
+      "group": "MR_BraTS-T1n",
+      "in_training": true,
+      "n_ok": 0,
+      "n_skip": 50,
+      "n_error": 0,
+      "mean_dice": NaN,
+      "mean_iou": NaN
+    },
+    {
+      "group": "MR_BraTS-T2f",
+      "in_training": true,
+      "n_ok": 0,
+      "n_skip": 50,
+      "n_error": 0,
+      "mean_dice": NaN,
+      "mean_iou": NaN
+    },
+    {
+      "group": "MR_BraTS-T2w",
+      "in_training": true,
+      "n_ok": 0,
+      "n_skip": 50,
+      "n_error": 0,
+      "mean_dice": NaN,
+      "mean_iou": NaN
+    }
+  ]
+}

@@ -9,12 +9,10 @@ Medical SAM3: A Foundation Model for Universal Prompt-Driven Medical Image Segme
 conda create -n medsam3 python=3.10
 conda activate medsam3
 
-# Install dependencies
+# From repository root (parent of inference/)
+cd ..
 pip install -r requirements.txt
-
-# Install SAM3 from source
-git clone https://github.com/facebookresearch/sam3.git
-pip install -e sam3/
+pip install -e ".[train]"   # SAM3 + training deps (bundled sam3/)
 ```
 
 ## Evaluation

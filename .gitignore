@@ -8,14 +8,15 @@ __pycache__/
 .eggs/
 dist/
 build/
+develop-eggs/
+wheels/
 
 # IDE / Editors
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Claude Code
+*.code-workspace
 .claude/
 
 # Jupyter
@@ -25,12 +26,57 @@ build/
 .DS_Store
 Thumbs.db
 
-# Large files (weights stored elsewhere)
+# Model weights
 *.pt
 *.pth
+*.bin
 *.ckpt
+*.safetensors
+weights/
+checkpoints/
+sam3_logs/
 
-# Results and visualizations
+# Data (large)
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+# keep small val npz out of git via local policy
+*.npy
+
+# Logs & experiment outputs
+logs/
+runs/
+tensorboard/
+submitit_logs/
+visualizations/
+config_resolved.yaml
+dumps/
+*.mp4
+*.out
+*.err
+
+# AIM inference outputs
 inference/results/
 inference/visualization/
 inference/*.ipynb
+
+# MedSAM3 runtime
+experiments/medsam3_stage1_train_all_unified/logs/
+experiments/medsam3_stage1_train_all_unified/tensorboard/
+experiments/medsam3_stage1_train_all_unified/config_resolved.yaml
+experiments/medsam3_stage1_train_all_unified/config.yaml
+experiments/results/
+experiments/logs/
+experiments/sam3_stage0.pt
+sam3/train/configs/medsam3_stage1_train_all_unified.local.yaml
+
+# BPE copies (canonical file is tracked)
+*.bpe
+*.vocab
+
+# Permission-denied local configs
+sam3/train/configs/medsam3_stage0_all_datasets.yaml
+sam3/train/configs/medsam3_stage0_all_datasets_v2.yaml
+sam3/train/configs/medsam3_stage0_decoder_only.yaml
+results/
