@@ -62,6 +62,11 @@ dumps/
 experiments/**
 !experiments/README.md
 
+# Eval run outputs / report markdown (write under experiments/results/)
+medical/evaluation/docs/
+**/results_per_*.csv
+**/summary.json
+
 # AIM inference outputs
 inference/results/
 inference/visualization/
