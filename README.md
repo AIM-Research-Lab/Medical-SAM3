@@ -33,9 +33,9 @@ python run_medsam3_evaluation.py --checkpoint /path/to/checkpoint.pt --model-nam
 
 SAM3 is bundled in this repo (`sam3/`); no separate clone required.
 
-## 🎬 Training & CVPR video evaluation
+## 🎬 Training & 3D evaluation
 
-Fine-tune SAM3 on **CVPR BiomedSegFM** video annotations and run held-out **3D / JSON** eval (train-aligned protocol).
+Fine-tune SAM3 on **3D** annotations and run held-out **3D / JSON** eval (train-aligned protocol).
 
 <a href="./medical/README.md"><img src="https://img.shields.io/badge/📖-Training_&_CVPR_Eval_Guide-blue?style=for-the-badge&logo=markdown"></a>
 
