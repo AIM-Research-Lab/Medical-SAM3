@@ -60,7 +60,7 @@ python medical/evaluation/cvpr_3d_val.py \
 | Path | Role |
 |------|------|
 | `inference/` | 2D image inference & public benchmark eval |
-| `medical/` | CVPR video **training** + **3D/JSON evaluation** |
+| `medical/` | CVPR 3D **training** + **3D/JSON evaluation** |
 | `sam3/` | SAM3 model, trainer, Hydra config |
 | `assets/` | BPE vocabulary |
 | `experiments/` | Checkpoints & eval outputs (runtime) |
