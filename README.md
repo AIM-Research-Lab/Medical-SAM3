@@ -16,7 +16,7 @@
 
 ## 📰 News
 
-* **[2026-06]**: 🎓 CVPR BiomedSegFM **video training & evaluation** code released under `medical/`.
+* **[2026-06]**: 🎓 Medical SAM 3 V2 **training & evaluation** code released under `medical/`.
 * **[2026-01-20]**: 🚀 Pretrained weights for Medical-SAM3 are released!
 * **[2026-01-15]**: 📄 Paper is available on arXiv.
 
