@@ -71,7 +71,7 @@ python medical/evaluation/cvpr_3d_val.py \
 | :--- | :---: | :--- |
 | **Demo** | 🚧 Doing | Online interactive demo. |
 | **Data Scaling** | 🚧 Doing | Expand training corpus and benchmarks. |
-| **CVPR Video Training** | ✅ Released | `medical/` + `medsam3_stage1_train_all_unified` config. |
+| **3D Training** | ✅ Released | `medical/` + `medsam3_stage1_train_all_unified` config. |
 | **Medical-SAM3 Agent** | 📅 Planned | LLM agentic segmentation. |
 
 ## 📝 Citation
