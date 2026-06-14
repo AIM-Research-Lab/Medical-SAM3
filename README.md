@@ -50,17 +50,17 @@ bash medical/training/prepare_config_paths.sh   # once, if yaml paths differ
 # Train
 python sam3/train/train.py -c configs/medsam3_stage1_train_all_unified --num-gpus 4
 
-# Eval — CVPR 3D val
-python medical/evaluation/cvpr_3d_val.py \
+# Eval 
+python medical/evaluation/3d_val.py \
   --ckpt experiments/medsam3_stage1_train_all_unified/checkpoints/checkpoint.pt \
-  --out-dir experiments/results/cvpr_3d_val/unified \
+  --out-dir experiments/results/3d_val/unified \
   --eval-all-volumes --text-only --use-train-prompts
 ```
 
 | Path | Role |
 |------|------|
 | `inference/` | 2D image inference & public benchmark eval |
-| `medical/` | CVPR 3D **training** + **3D/JSON evaluation** |
+| `medical/` | 3D **training** + **3D/JSON evaluation** |
 | `sam3/` | SAM3 model, trainer, Hydra config |
 | `assets/` | BPE vocabulary |
 | `experiments/` | Checkpoints & eval outputs (runtime) |
