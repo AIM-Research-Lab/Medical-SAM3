@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""CVPR 3D val — training-aligned protocol (8-frame window, text-only by default).
+"""3D val — training-aligned protocol (8-frame window, text-only by default).
 
 Usage (from repo root):
   export MEDSAM3_ROOT=$(pwd)
