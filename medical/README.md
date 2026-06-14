@@ -14,7 +14,7 @@ medical/
 └── evaluation/
     ├── README.md
     ├── eval_common.py
-    ├── cvpr_3d_val.py
+    ├── 3d_val.py
     ├── cvpr_json_val.py
     └── slurm/
 ```
@@ -42,7 +42,7 @@ Details: `medical/training/README.md`
 
 | Benchmark | Script |
 |-----------|--------|
-| CVPR 3D val | `medical/evaluation/cvpr_3d_val.py` |
-| CVPR JSON | `medical/evaluation/cvpr_json_val.py` |
+| 3D val | `medical/evaluation/3d_val.py` |
+| JSON val | `medical/evaluation/cvpr_json_val.py` |
 
 Details: `medical/evaluation/README.md`
