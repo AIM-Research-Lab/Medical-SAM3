@@ -16,7 +16,7 @@
 
 ## 📰 News
 
-* **[2026-06]**: 🎓 Medical SAM 3 V2 **training & evaluation** code released under `medical/`.
+* **[2026-06]**: 🎓 Medical SAM 3 V2 (3D) **training & evaluation** code released under `medical/`.
 * **[2026-01-20]**: 🚀 Pretrained weights for Medical-SAM3 are released!
 * **[2026-01-15]**: 📄 Paper is available on arXiv.
 
@@ -37,7 +37,7 @@ SAM3 is bundled in this repo (`sam3/`); no separate clone required.
 
 Fine-tune SAM3 on **3D** annotations and run held-out **3D / JSON** eval (train-aligned protocol).
 
-<a href="./medical/README.md"><img src="https://img.shields.io/badge/📖-Training_&_CVPR_Eval_Guide-blue?style=for-the-badge&logo=markdown"></a>
+<a href="./medical/README.md"><img src="https://img.shields.io/badge/📖-Training_&_Eval_Guide-blue?style=for-the-badge&logo=markdown"></a>
 
 ```bash
 export MEDSAM3_ROOT=$(pwd)
