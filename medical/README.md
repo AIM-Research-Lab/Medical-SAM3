@@ -1,6 +1,9 @@
-# MedSAM3 — training & evaluation
+# MedSAM3 — inference, training & evaluation
 
 All train/eval code lives here. Checkpoints and metrics go under `experiments/` (runtime only).
+
+For ground-truth-free 3D inference on your own NPZ volumes, see
+[`INFERENCE_3D.md`](INFERENCE_3D.md) and run `medical/inference_3d.py`.
 
 ## Layout
 

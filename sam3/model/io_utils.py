@@ -49,6 +49,9 @@ def load_resource_as_video_frames(
             orig_width,
             orig_height,
         )  # For some reason, this method returns these swapped
+        original_size_hw = getattr(resource_path, "original_size_hw", None)
+        if original_size_hw is not None:
+            orig_height, orig_width = original_size_hw
         images = []
         for img_pil in resource_path:
             img_np = np.array(img_pil.convert("RGB").resize((image_size, image_size)))

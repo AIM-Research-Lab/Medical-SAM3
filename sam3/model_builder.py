@@ -67,10 +67,10 @@ def _create_position_encoding(precompute_resolution=None):
     )
 
 
-def _create_vit_backbone(compile_mode=None):
+def _create_vit_backbone(compile_mode=None, image_size=1008):
     """Create ViT backbone for visual feature extraction."""
     return ViT(
-        img_size=1008,
+        img_size=image_size,
         pretrain_img_size=336,
         patch_size=14,
         embed_dim=1024,
@@ -151,7 +151,7 @@ def _create_transformer_encoder() -> TransformerEncoderFusion:
     return encoder
 
 
-def _create_transformer_decoder() -> TransformerDecoder:
+def _create_transformer_decoder(image_size=1008) -> TransformerDecoder:
     """Create transformer decoder with its layer."""
     decoder_layer = TransformerDecoderLayer(
         activation="relu",
@@ -180,7 +180,7 @@ def _create_transformer_decoder() -> TransformerDecoder:
         frozen=False,
         interaction_layer=None,
         dac_use_selfatt_ln=True,
-        resolution=1008,
+        resolution=image_size,
         stride=14,
         use_act_checkpoint=True,
         presence_token=True,
@@ -328,7 +328,7 @@ def _create_sam3_model(
     return model
 
 
-def _create_tracker_maskmem_backbone():
+def _create_tracker_maskmem_backbone(image_size=1008):
     """Create the SAM3 Tracker memory encoder."""
     # Position encoding for mask memory backbone
     position_encoding = PositionEmbeddingSine(
@@ -336,12 +336,15 @@ def _create_tracker_maskmem_backbone():
         normalize=True,
         scale=None,
         temperature=10000,
-        precompute_resolution=1008,
+        precompute_resolution=image_size,
     )
 
     # Mask processing components
     mask_downsampler = SimpleMaskDownSampler(
-        kernel_size=3, stride=2, padding=1, interpol_size=[1152, 1152]
+        kernel_size=3,
+        stride=2,
+        padding=1,
+        interpol_size=[image_size * 8 // 7, image_size * 8 // 7],
     )
 
     cx_block_layer = CXBlock(
@@ -364,7 +367,7 @@ def _create_tracker_maskmem_backbone():
     return maskmem_backbone
 
 
-def _create_tracker_transformer():
+def _create_tracker_transformer(image_size=1008):
     """Create the SAM3 Tracker transformer components."""
     # Self attention
     self_attention = RoPEAttention(
@@ -373,7 +376,7 @@ def _create_tracker_transformer():
         downsample_rate=1,
         dropout=0.1,
         rope_theta=10000.0,
-        feat_sizes=[72, 72],
+        feat_sizes=[image_size // 14, image_size // 14],
         use_fa3=False,
         use_rope_real=False,
     )
@@ -386,7 +389,7 @@ def _create_tracker_transformer():
         dropout=0.1,
         kv_in_dim=64,
         rope_theta=10000.0,
-        feat_sizes=[72, 72],
+        feat_sizes=[image_size // 14, image_size // 14],
         rope_k_repeat=True,
         use_fa3=False,
         use_rope_real=False,
@@ -430,7 +433,10 @@ def _create_tracker_transformer():
 
 
 def build_tracker(
-    apply_temporal_disambiguation: bool, with_backbone: bool = False, compile_mode=None
+    apply_temporal_disambiguation: bool,
+    with_backbone: bool = False,
+    compile_mode=None,
+    image_size=1008,
 ) -> Sam3TrackerPredictor:
     """
     Build the SAM3 Tracker module for video tracking.
@@ -440,15 +446,17 @@ def build_tracker(
     """
 
     # Create model components
-    maskmem_backbone = _create_tracker_maskmem_backbone()
-    transformer = _create_tracker_transformer()
+    maskmem_backbone = _create_tracker_maskmem_backbone(image_size=image_size)
+    transformer = _create_tracker_transformer(image_size=image_size)
     backbone = None
     if with_backbone:
-        vision_backbone = _create_vision_backbone(compile_mode=compile_mode)
+        vision_backbone = _create_vision_backbone(
+            compile_mode=compile_mode, image_size=image_size
+        )
         backbone = SAM3VLBackbone(scalp=1, visual=vision_backbone, text=None)
     # Create the Tracker module
     model = Sam3TrackerPredictor(
-        image_size=1008,
+        image_size=image_size,
         num_maskmem=7,
         backbone=backbone,
         backbone_stride=14,
@@ -497,13 +505,15 @@ def _create_text_encoder(bpe_path: str) -> VETextEncoder:
 
 
 def _create_vision_backbone(
-    compile_mode=None, enable_inst_interactivity=True
+    compile_mode=None, enable_inst_interactivity=True, image_size=1008
 ) -> Sam3DualViTDetNeck:
     """Create SAM3 visual backbone with ViT and neck."""
     # Position encoding
-    position_encoding = _create_position_encoding(precompute_resolution=1008)
+    position_encoding = _create_position_encoding(precompute_resolution=image_size)
     # ViT backbone
-    vit_backbone: ViT = _create_vit_backbone(compile_mode=compile_mode)
+    vit_backbone: ViT = _create_vit_backbone(
+        compile_mode=compile_mode, image_size=image_size
+    )
     vit_neck: Sam3DualViTDetNeck = _create_vit_neck(
         position_encoding,
         vit_backbone,
@@ -513,10 +523,12 @@ def _create_vision_backbone(
     return vit_neck
 
 
-def _create_sam3_transformer(has_presence_token: bool = True) -> TransformerWrapper:
+def _create_sam3_transformer(
+    has_presence_token: bool = True, image_size=1008
+) -> TransformerWrapper:
     """Create SAM3 transformer encoder and decoder."""
     encoder: TransformerEncoderFusion = _create_transformer_encoder()
-    decoder: TransformerDecoder = _create_transformer_decoder()
+    decoder: TransformerDecoder = _create_transformer_decoder(image_size=image_size)
 
     return TransformerWrapper(encoder=encoder, decoder=decoder, d_model=256)
 
@@ -558,7 +570,9 @@ def _load_checkpoint(model, checkpoint_path, nan_fallback_checkpoint_path=None):
             Used when training corrupted part of the language backbone but other
             weights remain valid.
     """
-    sam3_image_ckpt = _sam3_image_state_dict_from_checkpoint_file(checkpoint_path, model)
+    sam3_image_ckpt = _sam3_image_state_dict_from_checkpoint_file(
+        checkpoint_path, model
+    )
 
     if nan_fallback_checkpoint_path is not None:
         fb = _sam3_image_state_dict_from_checkpoint_file(
@@ -568,7 +582,11 @@ def _load_checkpoint(model, checkpoint_path, nan_fallback_checkpoint_path=None):
         for k, v in list(sam3_image_ckpt.items()):
             if not isinstance(v, torch.Tensor) or not torch.isnan(v).any():
                 continue
-            if k in fb and isinstance(fb[k], torch.Tensor) and not torch.isnan(fb[k]).any():
+            if (
+                k in fb
+                and isinstance(fb[k], torch.Tensor)
+                and not torch.isnan(fb[k]).any()
+            ):
                 sam3_image_ckpt[k] = fb[k].clone()
                 patched_keys.append(k)
             else:
@@ -587,6 +605,7 @@ def _load_checkpoint(model, checkpoint_path, nan_fallback_checkpoint_path=None):
             f"loaded {checkpoint_path} and found "
             f"missing and/or unexpected keys:\n{missing_keys}"
         )
+
 
 def _setup_device_and_mode(model, device, eval_mode):
     """Setup model device and evaluation mode."""
@@ -739,6 +758,7 @@ def build_sam3_video_model(
     training_mode=True,
     freeze_vision_backbone=False,
     nan_fallback_checkpoint_path: Optional[str] = None,
+    image_size: int = 1008,
 ) -> Sam3VideoInferenceWithInstanceInteractivity:
     """
     Build SAM3 dense tracking model.
@@ -747,6 +767,7 @@ def build_sam3_video_model(
         checkpoint_path: Optional path to checkpoint file
         bpe_path: Path to the BPE tokenizer file
         training_mode: If True, return a training wrapper instead of inference model.
+        image_size: Square model input size. The released 3D checkpoint uses 504.
         nan_fallback_checkpoint_path: If set, any tensor in the primary checkpoint that
             contains NaN is replaced by the same key from this file (when that tensor is finite).
             Same idea as build_sam3_image_model NaN patching for MedSAM3-style checkpoints.
@@ -761,14 +782,18 @@ def build_sam3_video_model(
 
     # Build Tracker module
     tracker = build_tracker(
-        apply_temporal_disambiguation=apply_temporal_disambiguation, with_backbone=False
+        apply_temporal_disambiguation=apply_temporal_disambiguation,
+        with_backbone=False,
+        image_size=image_size,
     )
 
     # Build Detector components
-    visual_neck = _create_vision_backbone()
+    visual_neck = _create_vision_backbone(image_size=image_size)
     text_encoder = _create_text_encoder(bpe_path)
     backbone = SAM3VLBackbone(scalp=1, visual=visual_neck, text=text_encoder)
-    transformer = _create_sam3_transformer(has_presence_token=has_presence_token)
+    transformer = _create_sam3_transformer(
+        has_presence_token=has_presence_token, image_size=image_size
+    )
     segmentation_head: UniversalSegmentationHead = _create_segmentation_head()
     input_geometry_encoder = _create_geometry_encoder()
 
@@ -801,8 +826,6 @@ def build_sam3_video_model(
         supervise_joint_box_scores=has_presence_token,
     )
 
-    
-
     if apply_temporal_disambiguation:
         video_model = Sam3VideoInferenceWithInstanceInteractivity(
             detector=detector,
@@ -824,7 +847,7 @@ def build_sam3_video_model(
             recondition_every_nth_frame=16,
             masklet_confirmation_enable=False,
             decrease_trk_keep_alive_for_empty_masklets=False,
-            image_size=1008,
+            image_size=image_size,
             image_mean=(0.5, 0.5, 0.5),
             image_std=(0.5, 0.5, 0.5),
             compile_model=compile,
@@ -851,14 +874,14 @@ def build_sam3_video_model(
             recondition_every_nth_frame=0,
             masklet_confirmation_enable=False,
             decrease_trk_keep_alive_for_empty_masklets=False,
-            image_size=1008,
+            image_size=image_size,
             image_mean=(0.5, 0.5, 0.5),
             image_std=(0.5, 0.5, 0.5),
             compile_model=compile,
         )
     # Use object.__setattr__ to avoid registering backbone as a duplicate nn.Module
     # under the tracker (it is already registered under detector.backbone).
-    object.__setattr__(tracker, 'backbone', detector.backbone)
+    object.__setattr__(tracker, "backbone", detector.backbone)
     # Load checkpoint if provided
     if load_from_HF and checkpoint_path is None:
         checkpoint_path = download_ckpt_from_hf()
@@ -867,9 +890,28 @@ def build_sam3_video_model(
         if nan_fallback_checkpoint_path:
             _patch_video_state_dict_nan(ckpt, nan_fallback_checkpoint_path)
 
-        missing_keys, unexpected_keys = video_model.load_state_dict(
-            ckpt, strict=strict_state_dict_loading
-        )
+        # RoPE frequency tables are deterministic buffers tied to input
+        # resolution. The current 3D checkpoint runs at 504px, so preserve the
+        # tables created by this model rather than loading incompatible ones.
+        dropped_freqs = [key for key in list(ckpt) if key.endswith("freqs_cis")]
+        for key in dropped_freqs:
+            del ckpt[key]
+        if dropped_freqs:
+            print(
+                f"Dropped {len(dropped_freqs)} resolution-specific freqs_cis buffer(s)."
+            )
+
+        missing_keys, unexpected_keys = video_model.load_state_dict(ckpt, strict=False)
+        if strict_state_dict_loading:
+            disallowed_missing = [
+                key for key in missing_keys if key not in dropped_freqs
+            ]
+            if disallowed_missing or unexpected_keys:
+                raise RuntimeError(
+                    "Checkpoint is incompatible with the 3D model: "
+                    f"missing keys={disallowed_missing}, "
+                    f"unexpected keys={list(unexpected_keys)}"
+                )
         if missing_keys:
             print(f"Missing keys: {missing_keys}")
         if unexpected_keys:
@@ -888,9 +930,7 @@ def build_sam3_video_model(
                 or "backbone.language_backbone" in name
             ):
                 param.requires_grad = False
-                
-    
-    
+
     if training_mode:
         trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
         total_params = sum(p.numel() for p in model.parameters())

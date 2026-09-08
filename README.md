@@ -33,7 +33,27 @@ python run_medsam3_evaluation.py --checkpoint /path/to/checkpoint.pt --model-nam
 
 SAM3 is bundled in this repo (`sam3/`); no separate clone required.
 
-## 🎬 Training & 3D evaluation
+## 🎬 3D inference, training & evaluation
+
+Run text-prompted inference on a single NPZ volume or a directory. The current
+3D policy covers the full depth in independent four-slice clips and does not
+use ground-truth masks, boxes, points, or ground-truth-selected slices.
+
+<a href="./medical/INFERENCE_3D.md"><img src="https://img.shields.io/badge/📖-3D_Inference_Guide-blue?style=for-the-badge&logo=markdown"></a>
+
+```bash
+python medical/inference_3d.py \
+  --input /path/to/case_or_directory \
+  --output-dir outputs/3d \
+  --checkpoint /path/to/medical_sam3_3d.pt \
+  --prompt '1=liver'
+```
+
+Outputs are compressed NPZ files containing `segs` with the original `(D,H,W)`
+geometry. Prompts can also come from each input's `text_prompts` dictionary or
+a per-case JSON file.
+
+### Training & benchmark evaluation
 
 Fine-tune SAM3 on **3D** annotations and run held-out **3D / JSON** eval (train-aligned protocol).
 
